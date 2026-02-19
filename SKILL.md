@@ -8,7 +8,7 @@ description: >
 metadata:
   openclaw:
     emoji: "📧"
-    source: https://github.com/unione-repo/openclaw-skill
+    source: https://github.com/unione-repo/unione-api-skill
     homepage: https://unione.io/en/
     always: false
     requires:
