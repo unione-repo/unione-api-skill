@@ -8,6 +8,9 @@ description: >
 metadata:
   openclaw:
     emoji: "📧"
+    source: https://github.com/unione-repo/openclaw-skill
+    homepage: https://unione.io/en/
+    always: false
     requires:
       env:
         - UNIONE_API_KEY
@@ -640,17 +643,20 @@ curl -X POST ".../email/subscribe.json?platform=openclaw" -H "X-API-KEY: $UNIONE
 
 1. **Domain setup is mandatory.** Before the first send, always check if the user's domain is verified. Run `domain/list.json` to check. If not verified, guide them through the domain setup process (Section: Domain Setup).
 2. **Always use `api.unione.io`** as the API host for all requests.
-3. **Never send an email without explicit user confirmation.** Always show the recipient, subject, and body summary before executing `email/send.json`.
-4. **Always include `idempotency_key`** in `email/send.json` requests. Generate a UUID for each unique send. Reuse the same key when retrying.
-5. **Implement retry logic** for 429 and 5xx errors with exponential backoff (see Error Handling section). Never retry 400, 401, 403, 404, 413 errors.
-6. **For template operations**, list available templates first before asking which one to use.
-7. **For validation**, report the result clearly and suggest action.
-8. **Handle errors gracefully.** If a request returns an error, explain what went wrong and suggest a fix.
-9. **Remind users** that the `from_email` domain must be verified in their UniOne account.
-10. **Substitution syntax** uses double curly braces: `{{variable_name}}`.
-11. **Attachments** must be base64-encoded. Help the user encode files if needed.
-12. **Security**: Never log or display the full API key. Remind users to keep their API key secret.
-13. **Code language**: When the user's project uses a specific language (Node.js, Python, Go, PHP, etc.), provide code examples in that language. The examples in this skill can be adapted to any language that can make HTTP POST requests with JSON.
+3. **Never send an email without explicit user confirmation.** Always show the recipient, subject, and body summary before executing `email/send.json`. Wait for the user to approve. This applies to every send — including test emails and retries with new content.
+4. **Never modify or delete templates, webhooks, or suppressions without explicit user confirmation.** Show what will be changed and wait for approval.
+5. **Always include `idempotency_key`** in `email/send.json` requests. Generate a UUID for each unique send. Reuse the same key when retrying.
+6. **Implement retry logic** for 429 and 5xx errors with exponential backoff (see Error Handling section). Never retry 400, 401, 403, 404, 413 errors.
+7. **For template operations**, list available templates first before asking which one to use.
+8. **For validation**, report the result clearly and suggest action.
+9. **Handle errors gracefully.** If a request returns an error, explain what went wrong and suggest a fix.
+10. **Remind users** that the `from_email` domain must be verified in their UniOne account.
+11. **Substitution syntax** uses double curly braces: `{{variable_name}}`.
+12. **Attachments** must be base64-encoded. Help the user encode files if needed.
+13. **Security**: Never log or display the full API key. Remind users to keep their API key secret. Recommend using a least-privilege API key scoped to only the required actions.
+14. **DNS safety**: When guiding users through domain DNS setup, instruct them to add records at their DNS provider themselves. Never ask users to paste private keys, certificates, or unrelated secrets into the conversation.
+15. **Code language**: When the user's project uses a specific language (Node.js, Python, Go, PHP, etc.), provide code examples in that language. The examples in this skill can be adapted to any language that can make HTTP POST requests with JSON.
+16. **Scope**: Only interact with UniOne API endpoints documented in this skill. Do not read unrelated files, environment variables, or access third-party services.
 
 ## Common Workflows
 

@@ -2,6 +2,9 @@
 
 📧 Send transactional and marketing emails via [UniOne](https://unione.io) directly from your AI assistant.
 
+[![Source](https://img.shields.io/badge/source-GitHub-blue)](https://github.com/unione-repo/openclaw-skill)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 ## What this skill does
 
 This skill teaches your AI agent to work with the UniOne Email API. It can:
@@ -67,11 +70,19 @@ Just talk to your AI assistant:
 - *"Set up a webhook for delivery tracking"*
 - *"Create an order confirmation template"*
 
+## Helper Scripts
+
+The `scripts/` directory contains optional bash utilities:
+
+- `unione.sh` — CLI wrapper for common operations (send, validate, domain-list)
+
+These scripts use `jq` for safe JSON construction and require confirmation before sending emails. See [scripts/README.md](scripts/README.md) for usage.
+
 ## Requirements
 
-- A [UniOne account](https://cp.unione.io/en/user/registration/) (free plan: 100 emails/day)
+- A [UniOne account](https://cp.unione.io/en/user/registration/) (free plan available)
 - A verified sending domain in UniOne
-- `curl` available on your system
+- `curl` and `jq` available on your system
 
 ## API Endpoint
 
@@ -90,10 +101,17 @@ This skill follows the [AgentSkills](https://docs.openclaw.ai/tools/skills) spec
 
 ## Security
 
-- This is an **official skill** from UniOne
-- No executable scripts — only API documentation in Markdown
+- Published by the UniOne team — verify at [docs.unione.io/en/integrations](https://docs.unione.io/en/integrations) and [source repository](https://github.com/unione-repo/openclaw-skill)
+- No executable code runs automatically — scripts are optional CLI helpers
 - Requires only your API key — no other system access needed
-- The agent always asks for confirmation before sending emails
+- The agent always asks for confirmation before sending emails or modifying resources
+- `always: false` — the skill is only invoked when relevant to your request
+
+### Best Practices
+
+- **Use a least-privilege API key** — create a scoped key limited to the actions you need. Avoid using a production master key during testing.
+- **Verify the package before installing** — if installing via ClawHub (`@unione/unione`), check the package identity and checksum. Compare with the [official repository](https://github.com/unione-repo/openclaw-skill).
+- **DNS records** — when setting up domain verification, add DNS records at your DNS provider yourself. Never paste private keys, certificates, or unrelated credentials into the agent.
 
 ## Links
 
