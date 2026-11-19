@@ -1,5 +1,10 @@
 # UniOne Email API — OpenClaw Skill
 
+> [!WARNING]
+> **Deprecated.** This skill is no longer maintained. Use [unione-skills](https://github.com/unione-repo/unione-skills) instead.
+>
+> Migration: remove the ClawHub skill `@unione/unione` and install the new skills with `npx skills add unione-repo/unione-skills`. See the new README for the list of skills and usage.
+
 📧 Send transactional and marketing emails via [UniOne](https://unione.io) directly from your AI assistant.
 
 [![Source](https://img.shields.io/badge/source-GitHub-blue)](https://github.com/unione-repo/unione-api-skill)
